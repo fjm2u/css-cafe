@@ -4,10 +4,10 @@ import time
 from playsound import playsound
 
 
-def on_connected(student_id: str):
+def on_connected(user_id: str):
+    print(user_id)
     # 音を鳴らす
     playsound('purchase.mp3')
-    print("")
 
 
 def on_connect_nfc(tag):
@@ -20,8 +20,8 @@ def on_connect_nfc(tag):
             sc = nfc.tag.tt3.ServiceCode(service_code >> 6, service_code & 0x3f)
             bc = nfc.tag.tt3.BlockCode(0, service=0)
             data = tag.read_without_encryption([sc], [bc])
-            sid = "s" + str(data[4:11])
-            print(sid)
+            user_id = data[4:11].decode('utf-8')
+            on_connected(user_id)
 
         except Exception as e:
             print(f"error: {e}")

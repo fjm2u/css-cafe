@@ -1,0 +1,4 @@
+nfcpy
+pyobject
+playsound
+
