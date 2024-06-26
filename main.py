@@ -1,18 +1,20 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-
 import binascii
 import nfc
 import time
+from playsound import playsound
 
-# 学生証のサービスコード
-service_code = 0x300B
+
+def on_connected(student_id: str):
+    # 音を鳴らす
+    playsound('purchase.mp3')
+    print("")
 
 
 def on_connect_nfc(tag):
     # タグのIDなどを出力する
     # print tag
-
+    # 学生証のサービスコード
+    service_code = 0x300B
     if isinstance(tag, nfc.tag.tt3.Type3Tag):
         try:
             sc = nfc.tag.tt3.ServiceCode(service_code >> 6, service_code & 0x3f)
@@ -20,6 +22,7 @@ def on_connect_nfc(tag):
             data = tag.read_without_encryption([sc], [bc])
             sid = "s" + str(data[4:11])
             print(sid)
+
         except Exception as e:
             print(f"error: {e}")
     else:
