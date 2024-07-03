@@ -1,13 +1,18 @@
 import binascii
 import nfc
 import time
-from playsound import playsound
+import simpleaudio as sa
+# from playsound import playsound
 
 
 def on_connected(user_id: str):
     print(user_id)
-    # 音を鳴らす
-    playsound('purchase.mp3')
+    # @Todo: なんかGstのエラーが出る
+    # playsound('sound.mp3')
+    wave_obj = sa.WaveObject.from_wave_file("purchase.wav")
+    play_obj = wave_obj.play()
+    play_obj.wait_done()
+    print("sound played")
 
 
 def on_connect_nfc(tag):
