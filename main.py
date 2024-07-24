@@ -1,18 +1,28 @@
 import binascii
+import json
+
 import nfc
 import time
-import simpleaudio as sa
+# import simpleaudio as sa
 # from playsound import playsound
+import os
+
+import requests
+
+
+def post_to_slack(user_id: str):
+
+    payload = {
+        "user": user_id,
+        "trigger": "workflow_trigger"
+    }
+    response = requests.post(url, data=json.dumps(payload), headers={'Content-Type': 'application/json'})
+    print(response.status_code)
 
 
 def on_connected(user_id: str):
     print(user_id)
-    # @Todo: なんかGstのエラーが出る
-    # playsound('sound.mp3')
-    wave_obj = sa.WaveObject.from_wave_file("purchase.wav")
-    play_obj = wave_obj.play()
-    play_obj.wait_done()
-    print("sound played")
+    post_to_slack(user_id)
 
 
 def on_connect_nfc(tag):
