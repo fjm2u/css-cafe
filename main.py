@@ -11,7 +11,7 @@ import requests
 
 
 def post_to_slack(user_id: str):
-
+    url = "7380806788353/eccfde2b8d9a7fcf0cb4744ab26cb72b"
     payload = {
         "user": user_id,
         "trigger": "workflow_trigger"
